@@ -51,7 +51,7 @@ if($mysqli->connect_errno){
                 </form>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-4">
             <h2>Coaches</h2>
             <table>
                 <tr>
@@ -91,5 +91,6 @@ if($mysqli->connect_errno){
 
             </table>
         </div>
+
     </div>
 </div>
