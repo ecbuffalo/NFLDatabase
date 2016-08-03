@@ -40,7 +40,7 @@ if($mysqli->connect_errno){
     <div class="row">
         <div class="col-sm-4">
             <div class="form-group">
-                <form method="post" action="addplayer.php">
+                <form method="post" action="addPlayer.php">
                     <legend>Add New Player</legend>
                     <p>First Name: <input type="text" name="FirstName"/></p>
                     <p>Last Name: <input type="text" name="LastName"/></p>
