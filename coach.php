@@ -44,9 +44,9 @@ if($mysqli->connect_errno){
                     <legend>Add New Coach</legend>
                     <p>First Name: <input type="text" name="FirstName"/></p>
                     <p>Last Name: <input type="text" name="LastName"/></p>
-                    <p>Division Championships Won: <input type="number" name="Division" min="0"/></p>
-                    <p>Conference Championships Won: <input type="number" name="Conference" min="0"/></p>
-                    <p>League Championships Won: <input type="number" name="League" min="0"/></p>
+                    <p>Division Championships Won: <input type="number" name="Division" min="0" value="0"/></p>
+                    <p>Conference Championships Won: <input type="number" name="Conference" min="0" value="0"/></p>
+                    <p>League Championships Won: <input type="number" name="League" min="0" value="0"/></p>
                     <p><input type="submit" /></p>
                 </form>
             </div>

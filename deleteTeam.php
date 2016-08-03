@@ -49,6 +49,7 @@ if(!$stmt->execute()){
 } else {
     echo "Successfully Removed " . $_POST['RegionName'] . " " . $_POST['TeamName'] . " from team table.";
 }
+$stmt->close();
 ?>
 
 </body>

@@ -49,6 +49,7 @@ if(!$stmt->execute()){
 } else {
     echo "Successfully Removed " . $_POST['FirstName'] . " " . $_POST['LastName'] . " from player table.";
 }
+$stmt->close();
 ?>
 
 </body>

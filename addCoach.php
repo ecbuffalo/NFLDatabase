@@ -37,17 +37,17 @@ if(!$mysqli || $mysqli->connect_errno){
 </nav>
 
 <?php
-if(!($stmt = $mysqli->prepare("DELETE FROM coach WHERE id = ?"))){
+$sql="INSERT INTO coach(first_name, last_name, division_titles, conference_titles, championships) VALUES (?,?,?,?)";
+if(!($stmt = $mysqli->prepare($sql))){
     echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
-
-if(!($stmt->bind_param("i",$_POST['CoachID']))){
+if(!($stmt->bind_param("ssiii",$_POST['FirstName'],$_POST['LastName'],$_POST['Division'],$_POST['Conference'],$_POST['League']))){
     echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 }
 if(!$stmt->execute()){
     echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 } else {
-    echo "Successfully Removed " . $_POST['FirstName'] . " " . $_POST['LastName'] . " from coach table.";
+    echo "Successfully Added " . $_POST['FirstName'] . " " . $_POST['LastName'] . " to coach table.";
 }
 $stmt->close();
 ?>

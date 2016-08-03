@@ -41,8 +41,6 @@ if(!($stmt = $mysqli->prepare("INSERT INTO player(first_name, last_name, birthda
     echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
 $BDate=$_POST['BirthDateYear'] . "-" . $_POST['BirthDateMonth'] . "-" . $_POST['BirthDateDay'] . " 00:00:00";
-echo $BDate . "|Date";
-echo $_POST['AlmaMater'];
 if(!($stmt->bind_param("ssss",$_POST['FirstName'],$_POST['LastName'],$BDate,$_POST['AlmaMater']))){
     echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 }
@@ -51,6 +49,7 @@ if(!$stmt->execute()){
 } else {
     echo "Successfully Added " . $_POST['FirstName'] . " " . $_POST['LastName'] . " to player table.";
 }
+$stmt->close();
 ?>
 
 </body>
