@@ -37,7 +37,7 @@ if(!$mysqli || $mysqli->connect_errno){
 </nav>
 
 <?php
-$sql="INSERT INTO coach(first_name, last_name, division_titles, conference_titles, championships) VALUES (?,?,?,?)";
+$sql="INSERT INTO coach(first_name, last_name, division_titles, conference_titles, championships) VALUES (?,?,?,?,?)";
 if(!($stmt = $mysqli->prepare($sql))){
     echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
