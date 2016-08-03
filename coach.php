@@ -38,7 +38,7 @@ if($mysqli->connect_errno){
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-md-4">
             <div class="form-group">
                 <form method="post" action="addcoach.php">
                     <legend>Add New Coach</legend>
@@ -51,7 +51,7 @@ if($mysqli->connect_errno){
                 </form>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-md-4">
             <h2>Coaches</h2>
             <table>
                 <tr>
