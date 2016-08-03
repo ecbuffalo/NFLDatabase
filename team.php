@@ -43,12 +43,12 @@ if($mysqli->connect_errno){
                 <form method="post" action="addTeam.php">
                     <legend>Add New Team</legend>
                     <p>Team Name: <input type="text" name="Name"/></p>
-                    <p>City Name: <input type="text" name="CityName"/></p>
-                    <p>State Name: <input type="text" name="StateName"/></p>
-                    <p>Region Name: <input type="text" name="RegionName"/></p>
-                    <p>Year Founded: <input type="number" name="FoundYear" min="1900" max="2016"/></p>
-                    <p>Month Founded: <input type="number" name="FoundMonth" min="1" max="12"/></p>
-                    <p>Day Founded: <input type="number" name="FoundDay" min="1" max="31"/></p>
+                    <p>City Name: <input type="text" name="City"/></p>
+                    <p>State Name: <input type="text" name="State"/></p>
+                    <p>Region Name: <input type="text" name="Region"/></p>
+                    <p>Year Founded: <input type="number" name="FoundedYear" min="1900" max="2016"/></p>
+                    <p>Month Founded: <input type="number" name="FoundedMonth" min="1" max="12"/></p>
+                    <p>Day Founded: <input type="number" name="FoundedDay" min="1" max="31"/></p>
                     <p><input type="submit" /></p>
                 </form>
             </div>
