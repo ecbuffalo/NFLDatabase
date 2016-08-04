@@ -59,6 +59,8 @@ if($mysqli->connect_errno){
                     <td>Division Championships</td>
                     <td>Conference Championships</td>
                     <td>League Championships</td>
+                    <td>View Info</td>
+                    <td>Add Info</td>
                     <td>Delete</td>
                 </tr>
                 <?php
@@ -82,6 +84,8 @@ if($mysqli->connect_errno){
                     $hiddenFieldFName = "<input type=\"hidden\" name=\"FirstName\" value=\"" . $first_name . "\">";
                     $hiddenFieldLName = "<input type=\"hidden\" name=\"LastName\" value=\"" . $last_name . "\">";
                     $hiddenField = $hiddenFieldId . $hiddenFieldFName . $hiddenFieldLName;
+                    $viewForm = "<form action=\"coach.php\" method=\"get\"><input type=\"submit\" value=\"View\">" . $hiddenField . "</form>";
+                    $addForm =  "<form action=\"addCoachInfo.php\" method=\"post\"><input type=\"submit\" value=\"Add\">" . $hiddenField . "</form>";
                     $deleteForm = "<form action=\"deleteCoach.php\" method=\"post\"><input type=\"submit\" value=\"Delete\">" . $hiddenField . "</form>";
                     $delete = "<td>" . $deleteForm . "</td>";
                     echo "<tr>" . $name . $div . $conf . $leag . $delete . "</tr>";
@@ -93,4 +97,67 @@ if($mysqli->connect_errno){
         </div>
 
     </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php
+            $coachHasEntries = false;
+            $coachName = "";
+            $coachHistory = array();
+            if(isset($_GET['CoachID'])){
+                $coachID = $_GET['CoachID'];
+                $sql = "SELECT c.first_name,c.last_name,t.name,t.region,cf.start_date,cf.end_date,cf.job_title FROM coach c
+                                            INNER JOIN coached_for cf on c.id=cf.coach_id
+                                            INNER JOIN team t on cf.team_id=t.id
+                                            WHERE c.id = ?";
+                if(!($stmt = $mysqli->prepare($sql))){
+                    echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+                }
+                if(!($stmt->bind_param("i",$coachID))){
+                    echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+                }
+
+                if(!$stmt->execute()){
+                    echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                }
+                if(!$stmt->bind_result($c_first_name,$c_last_name,$team_name,$team_region,$start,$end,$job)){
+                    echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                }
+                while($stmt->fetch()){
+                    $coachHasEntries = true;
+                    $coachName = $c_first_name . " " . $c_last_name;
+                    $rowHTML = "<tr>";
+                    $rowHTML .= "<td>" . $team_region . " " . $team_name . "</td>";
+                    $rowHTML .= "<td>" . $start . "</td>";
+                    $rowHTML .= "<td>" . $end . "</td>";
+                    $rowHTML .= "<td>" . $job . "</td>";
+                    $rowHTML .= "</tr>";
+                    array_push($coachHistory, $rowHTML);
+                }
+                $stmt->close();
+
+                if($coachName == ""){
+                    $coachName = "No Coach Name";
+                }
+                $tableHTML = "<h2>" . $coachName . "</h2>
+            <table>
+                <tr>
+                    <td>Team Name</td>
+                    <td>Start Date</td>
+                    <td>End Date</td>
+                    <td>Job Title</td>
+                </tr>";
+                echo $tableHTML;
+                if($coachHasEntries){
+                    $historyLength = count($coachHistory);
+                    for($x = 0 ; $x < $historyLength; $x++){
+                        echo $coachHistory[$x];
+                    }
+                }else{
+                    echo "<td>No Coaching History</td>";
+                }
+                echo "</table>";
+            }
+            ?>
+            </div>
+        </div>
 </div>
