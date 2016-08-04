@@ -57,10 +57,7 @@ if(!$mysqli || $mysqli->connect_errno){
                             }
                             while($stmt->fetch()){
                                 if(isset($_GET['CoachID'])){
-                                    echo "get: " . $_GET['CoachID'];
-                                    echo "cid: " . $coach_id;
                                     if($_GET['CoachID'] == $coach_id){
-                                        echo "got here";
                                         echo '<option selected="selected" value=" '. $coach_id . ' "> ' . $first_name . " " .$last_name . '</option>\n';
                                     }else{
                                         echo '<option value=" '. $coach_id . ' "> ' . $first_name . " " .$last_name . '</option>\n';
@@ -122,10 +119,10 @@ if(!$mysqli || $mysqli->connect_errno){
             if(!($stmt = $mysqli->prepare($sql))){
                 echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
             }
-            $StartDate = $_POST['StartYear'] . $_POST['StartMonth'] . $_POST['StartDay'] . " 00:00:00";
+            $StartDate = $_POST['StartYear'] . "-" . $_POST['StartMonth'] . "-" . $_POST['StartDay'] . " 00:00:00";
             $EndDate = "";
             if($_POST['EndYear'] != ""){
-                $EndDate = $_POST['EndYear'] . $_POST['EndMonth'] . $_POST['EndDay'] . " 00:00:00";
+                $EndDate = $_POST['EndYear'] . "-" . $_POST['EndMonth'] . "-" . $_POST['EndDay'] . " 00:00:00";
             }
             if(!($stmt->bind_param("iisss",$_POST['CoachID'],$_POST['TeamID'],$StartDate,$EndDate,$_POST['JobTitle']))){
                 echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
