@@ -59,7 +59,7 @@ if (count($teams) == 0){
     return;
 }else{
     echo "<ul>";
-    foreach ($teams as $t -> $t_value){
+    foreach ($teams as $t => $t_value){
         echo "<li>" . $t_value . "</li>";
     }
     echo "</ul>";
