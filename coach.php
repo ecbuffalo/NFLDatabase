@@ -85,10 +85,12 @@ if($mysqli->connect_errno){
                     $hiddenFieldLName = "<input type=\"hidden\" name=\"LastName\" value=\"" . $last_name . "\">";
                     $hiddenField = $hiddenFieldId . $hiddenFieldFName . $hiddenFieldLName;
                     $viewForm = "<form action=\"coach.php\" method=\"get\"><input type=\"submit\" value=\"View\">" . $hiddenField . "</form>";
+                    $view = "<td>" . $viewForm . "</td>";
                     $addForm =  "<form action=\"addCoachInfo.php\" method=\"post\"><input type=\"submit\" value=\"Add\">" . $hiddenField . "</form>";
+                    $add = "<td>" . $addForm . "</td>";
                     $deleteForm = "<form action=\"deleteCoach.php\" method=\"post\"><input type=\"submit\" value=\"Delete\">" . $hiddenField . "</form>";
                     $delete = "<td>" . $deleteForm . "</td>";
-                    echo "<tr>" . $name . $div . $conf . $leag . $delete . "</tr>";
+                    echo "<tr>" . $name . $div . $conf . $leag . $view . $add . $delete . "</tr>";
                 }
                 $stmt->close();
                 ?>
