@@ -44,9 +44,9 @@ if($mysqli->connect_errno){
                     <legend>Add New Player</legend>
                     <p>First Name: <input type="text" name="FirstName"/></p>
                     <p>Last Name: <input type="text" name="LastName"/></p>
-                    <p>Birth Date Year: <input type="number" name="BirthDateYear" min="1900" max="2000" value="1990"/>
-                        Birth Date Month: <input type="number" name="BirthDateMonth" min="1" max="12" value="1"/>
-                        Birth Date Day: <input type="number" name="BirthDateDay" min="1" max="31" value="1"/></p>
+                    <p>Birth Date Year: <input type="number" name="BirthDateYear" min="1900" max="2000" value="1990"/></p>
+                    <p>Birth Date Month: <input type="number" name="BirthDateMonth" min="1" max="12" value="1"/></p>
+                    <p>Birth Date Day: <input type="number" name="BirthDateDay" min="1" max="31" value="1"/></p>
                     <p>Alma Mater: <input type="text" name="AlmaMater"/></p>
                     <p><input type="submit" /></p>
                 </form>
@@ -55,12 +55,12 @@ if($mysqli->connect_errno){
         <div class="col-sm-4">
             <h2>Players</h2>
             <table class="table table-hover" border="1">
-                <tr>
+                <th>
                     <td>Name</td>
                     <td>Birthdate</td>
                     <td>Alma Mater</td>
                     <td>Delete</td>
-                </tr>
+                </th>
                 <?php
 
                 if(!($stmt = $mysqli->prepare("SELECT id,first_name,last_name,birthdate,alma_mater FROM player"))){
