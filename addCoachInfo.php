@@ -115,6 +115,8 @@ if(!$mysqli || $mysqli->connect_errno){
 ></div>
         <?php
         if(isset($_POST['CoachID']) && isset($_POST['TeamID'])){
+            echo "Coach ID: " . $_POST['CoachID'];
+            echo "Team ID: " . $_POST['TeamID'];
             $sql="INSERT INTO coached_for(coach_id, team_id, start_date, end_date, job_title) VALUES (?,?,?,?,?)";
             if(!($stmt = $mysqli->prepare($sql))){
                 echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
@@ -127,11 +129,12 @@ if(!$mysqli || $mysqli->connect_errno){
             if(!($stmt->bind_param("iisss",$_POST['CoachID'],$_POST['TeamID'],$StartDate,$EndDate,$_POST['JobTitle']))){
                 echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
             }
+            /*
             if(!$stmt->execute()){
                 echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
             } else {
                 echo "Successfully added to Coach History table.<br/>";
-            }
+            }*/
             $stmt->close();
         }
 
