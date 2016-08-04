@@ -36,51 +36,97 @@ if(!$mysqli || $mysqli->connect_errno){
     </div>
 </nav>
 
-<?php
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <form method="post" action="addCoachInfo.php">
+                    <legend>Coach Team History</legend>
+                    <p>Coach:
+                        <select name="Coach" >
+                            <?php
+                            $sql = "SELECT id,first_name,last_name FROM coach";
+                            if(!($stmt = $mysqli->prepare($sql))){
+                                echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+                            }
+                            if(!$stmt->execute()){
+                                echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+                            }
+                            if(!$stmt->bind_result($coach_id,$first_name,$last_name)){
+                                echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                            }
+                            while($stmt->fetch()){
+                                if(isset($_GET['CoachID'])){
+                                    if($_GET['CoachID'] == $coach_id){
+                                        echo '<option selected="selected" value=" '. $coach_id . ' "> ' . $first_name . " " .$last_name . '</option>\n';
+                                    }else{
+                                        echo '<option value=" '. $coach_id . ' "> ' . $first_name . " " .$last_name . '</option>\n';
+                                    }
+                                }else{
+                                    echo '<option value=" '. $coach_id . ' "> ' . $first_name . " " .$last_name . '</option>\n';
+                                }
+                            }
+                            $stmt->close();
+                            ?>
+                        </select>
+                    </p>
+                    <p>Team:
+                        <select name="Team">
+                            <?php
+                            $teams = array();
+                            $sql = "SELECT id,name,region_name FROM team";
+                            if(!($stmt = $mysqli->prepare($sql))){
+                                echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+                            }
+                            if(!$stmt->execute()){
+                                echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+                            }
+                            if(!$stmt->bind_result($team_id,$team_name,$team_region)){
+                                echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                            }
+                            while($stmt->fetch()){
+                                $teams[$team_id] = $team_region . " " . $team_name;
+                            }
+                            $stmt->close();
 
-$teams = array();
-$sql = "SELECT id,name,region_name FROM team";
-if(!($stmt = $mysqli->prepare($sql))){
-    echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-}
-if(!$stmt->execute()){
-    echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
-}
-if(!$stmt->bind_result($team_id,$team_name,$team_region)){
-    echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-}
-while($stmt->fetch()){
-    $teams[$team_id] = $team_region . " " . $team_name;
-}
-$stmt->close();
+                            if (count($teams) == 0){
+                                echo "No Teams in Database! Add at least one first...";
+                                return;
+                            }else{
+                                foreach ($teams as $t => $t_value){
+                                    echo "<option value=\"" . $t_value . "\">" .$t_value . "</li>";
+                                }
+                            }
+                            ?>
+                        </select>
+                    </p>
 
-if (count($teams) == 0){
-    echo "No Teams in Database! Add at least one first...";
-    return;
-}else{
-    echo "<ul>";
-    foreach ($teams as $t => $t_value){
-        echo "<li>" . $t_value . "</li>";
-    }
-    echo "</ul>";
-}
 
-/*
-$sql="INSERT INTO coach(first_name, last_name, division_titles, conference_titles, championships) VALUES (?,?,?,?,?)";
-if(!($stmt = $mysqli->prepare($sql))){
-    echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-}
-if(!($stmt->bind_param("ssiii",$_POST['FirstName'],$_POST['LastName'],$_POST['Division'],$_POST['Conference'],$_POST['League']))){
-    echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
-}
-if(!$stmt->execute()){
-    echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
-} else {
-    echo "Successfully Added " . $_POST['FirstName'] . " " . $_POST['LastName'] . " to coach table.";
-}
-$stmt->close();
 
-*/
-?>
+                </form>
+            </div>
+        </div>
+        /*
+        $sql="INSERT INTO coach(first_name, last_name, division_titles, conference_titles, championships) VALUES (?,?,?,?,?)";
+        if(!($stmt = $mysqli->prepare($sql))){
+        echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+        }
+        if(!($stmt->bind_param("ssiii",$_POST['FirstName'],$_POST['LastName'],$_POST['Division'],$_POST['Conference'],$_POST['League']))){
+        echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+        }
+        if(!$stmt->execute()){
+        echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+        } else {
+        echo "Successfully Added " . $_POST['FirstName'] . " " . $_POST['LastName'] . " to coach table.";
+        }
+        $stmt->close();
+
+        */
+        ?>
+
+
+
+    </div>
+</div>
 </body>
 </html>
