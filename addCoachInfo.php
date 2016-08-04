@@ -57,7 +57,10 @@ if(!$mysqli || $mysqli->connect_errno){
                             }
                             while($stmt->fetch()){
                                 if(isset($_GET['CoachID'])){
+                                    echo "get: " . $_GET['CoachID'];
+                                    echo "cid: " . $coach_id;
                                     if($_GET['CoachID'] == $coach_id){
+                                        echo "got here";
                                         echo '<option selected="selected" value=" '. $coach_id . ' "> ' . $first_name . " " .$last_name . '</option>\n';
                                     }else{
                                         echo '<option value=" '. $coach_id . ' "> ' . $first_name . " " .$last_name . '</option>\n';
@@ -112,11 +115,9 @@ if(!$mysqli || $mysqli->connect_errno){
                 </form>
             </div>
         </div>
-></div>
+</div>
         <?php
         if(isset($_POST['CoachID']) && isset($_POST['TeamID'])){
-            echo "Coach ID: " . $_POST['CoachID'];
-            echo "Team ID: " . $_POST['TeamID'];
             $sql="INSERT INTO coached_for(coach_id, team_id, start_date, end_date, job_title) VALUES (?,?,?,?,?)";
             if(!($stmt = $mysqli->prepare($sql))){
                 echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;

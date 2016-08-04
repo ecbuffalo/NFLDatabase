@@ -100,7 +100,7 @@ if($mysqli->connect_errno){
 
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <?php
             $coachHasEntries = false;
             $coachName = "";
