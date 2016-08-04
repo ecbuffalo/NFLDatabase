@@ -37,6 +37,20 @@ if(!$mysqli || $mysqli->connect_errno){
 </nav>
 
 <?php
+if(!($stmt = $mysqli->prepare("DELETE FROM coached_for WHERE coach_id = ?"))){
+    echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!($stmt->bind_param("i",$_POST['CoachID']))){
+    echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+}
+if(!$stmt->execute()){
+    echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+} else {
+    echo "Successfully Removed Coach History for " . $_POST['FirstName'] . " " . $_POST['LastName'] . ".";
+}
+$stmt->close();
+
 if(!($stmt = $mysqli->prepare("DELETE FROM coach WHERE id = ?"))){
     echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
