@@ -55,12 +55,12 @@ if($mysqli->connect_errno){
         <div class="col-sm-4">
             <h2>Players</h2>
             <table class="table table-hover" border="1">
-                <th>
-                    <td>Name</td>
-                    <td>Birthdate</td>
-                    <td>Alma Mater</td>
-                    <td>Delete</td>
-                </th>
+                <tr>
+                    <th>Name</th>
+                    <th>Birthdate</th>
+                    <th>Alma Mater</th>
+                    <th>Delete</th>
+                </tr>
                 <?php
 
                 if(!($stmt = $mysqli->prepare("SELECT id,first_name,last_name,birthdate,alma_mater FROM player"))){
