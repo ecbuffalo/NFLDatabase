@@ -94,7 +94,7 @@ if(!$mysqli || $mysqli->connect_errno){
                                 return;
                             }else{
                                 foreach ($teams as $t => $t_value){
-                                    echo "<option value=\"" . $t_value . "\">" .$t_value . "</li>";
+                                    echo "<option value=\"" . $t . "\">" .$t_value . "</li>";
                                 }
                             }
                             ?>
