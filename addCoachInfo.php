@@ -121,7 +121,7 @@ if(!$mysqli || $mysqli->connect_errno){
             }
             $StartDate = $_POST['StartYear'] . $_POST['StartMonth'] . $_POST['StartDay'] . " 00:00:00";
             $EndDate = "";
-            if($_POST['End'] != ""){
+            if($_POST['EndYear'] != ""){
                 $EndDate = $_POST['EndYear'] . $_POST['EndMonth'] . $_POST['EndDay'] . " 00:00:00";
             }
             if(!($stmt->bind_param("iisss",$_POST['CoachID'],$_POST['TeamID'],$StartDate,$EndDate,$_POST['JobTitle']))){
