@@ -107,7 +107,7 @@ if($mysqli->connect_errno){
             $coachHistory = array();
             if(isset($_GET['CoachID'])){
                 $coachID = $_GET['CoachID'];
-                $sql = "SELECT c.first_name,c.last_name,t.name,t.region,cf.start_date,cf.end_date,cf.job_title FROM coach c
+                $sql = "SELECT c.first_name,c.last_name,t.name,t.region_name,cf.start_date,cf.end_date,cf.job_title FROM coach c
                                             INNER JOIN coached_for cf on c.id=cf.coach_id
                                             INNER JOIN team t on cf.team_id=t.id
                                             WHERE c.id = ?";
