@@ -108,8 +108,8 @@ if(!$mysqli || $mysqli->connect_errno){
                     <p>Start Date Month<input type="number" name="StartMonth" min="1" max="12" value="1"/></p>
                     <p>Start Date Day<input type="number" name="StartDay" min="1" max="31" value="1"/></p>
                     <p>End Date Year<input type="number" name="EndYear" min="1900"/></p>
-                    <p>End Date Month<input type="number" name="EndYear" min="1" max="12"/></p>
-                    <p>End Date Day<input type="number" name="EndYear" min="1" max="31"/></p>
+                    <p>End Date Month<input type="number" name="EndMonth" min="1" max="12"/></p>
+                    <p>End Date Day<input type="number" name="EndDay" min="1" max="31"/></p>
                     <p><input type="submit"/></p>
 
                 </form>
