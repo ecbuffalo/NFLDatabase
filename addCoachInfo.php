@@ -43,7 +43,7 @@ if(!$mysqli || $mysqli->connect_errno){
                 <form method="post" action="addCoachInfo.php">
                     <legend>Coach Team History</legend>
                     <p>Coach:
-                        <select name="Coach" >
+                        <select name="CoachID" >
                             <?php
                             $sql = "SELECT id,first_name,last_name FROM coach";
                             if(!($stmt = $mysqli->prepare($sql))){
@@ -71,7 +71,7 @@ if(!$mysqli || $mysqli->connect_errno){
                         </select>
                     </p>
                     <p>Team:
-                        <select name="Team">
+                        <select name="TeamID">
                             <?php
                             $teams = array();
                             $sql = "SELECT id,name,region_name FROM team";
@@ -90,7 +90,7 @@ if(!$mysqli || $mysqli->connect_errno){
                             $stmt->close();
 
                             if (count($teams) == 0){
-                                echo "No Teams in Database! Add at least one first...";
+                                echo "</select><h1>No Teams in Database! Add at least one first...</h1>";
                                 return;
                             }else{
                                 foreach ($teams as $t => $t_value){
@@ -100,35 +100,45 @@ if(!$mysqli || $mysqli->connect_errno){
                             ?>
                         </select>
                     </p>
-
-
+                    <p>Job Title:<input type="text" name="JobTitle" value="Head Coach"/></p>
+                    <p>Start Date Year<input type="number" name="StartYear" min="1900" value="2016"/></p>
+                    <p>Start Date Month<input type="number" name="StartMonth" min="1" max="12" value="1"/></p>
+                    <p>Start Date Day<input type="number" name="StartDay" min="1" max="31" value="1"/></p>
+                    <p>End Date Year<input type="number" name="EndYear" min="1900"/></p>
+                    <p>End Date Month<input type="number" name="EndYear" min="1" max="12"/></p>
+                    <p>End Date Day<input type="number" name="EndYear" min="1" max="31"/></p>
+                    <p><input type="submit"/></p>
 
                 </form>
             </div>
         </div>
-        
+></div>
         <?php
-        /*
-        $sql="INSERT INTO coach(first_name, last_name, division_titles, conference_titles, championships) VALUES (?,?,?,?,?)";
-        if(!($stmt = $mysqli->prepare($sql))){
-        echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+        if(isset($_POST['CoachID']) && isset($_POST['TeamID'])){
+            $sql="INSERT INTO coached_for(coach_id, team_id, start_date, end_date, job_title) VALUES (?,?,?,?,?)";
+            if(!($stmt = $mysqli->prepare($sql))){
+                echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+            }
+            $StartDate = $_POST['StartYear'] . $_POST['StartMonth'] . $_POST['StartDay'] . " 00:00:00";
+            $EndDate = "";
+            if($_POST['End'] != ""){
+                $EndDate = $_POST['EndYear'] . $_POST['EndMonth'] . $_POST['EndDay'] . " 00:00:00";
+            }
+            if(!($stmt->bind_param("iisss",$_POST['CoachID'],$_POST['TeamID'],$StartDate,$EndDate,$_POST['JobTitle']))){
+                echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+            }
+            if(!$stmt->execute()){
+                echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+            } else {
+                echo "Successfully added to Coach History table.<br/>";
+            }
+            $stmt->close();
         }
-        if(!($stmt->bind_param("ssiii",$_POST['FirstName'],$_POST['LastName'],$_POST['Division'],$_POST['Conference'],$_POST['League']))){
-        echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
-        }
-        if(!$stmt->execute()){
-        echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
-        } else {
-        echo "Successfully Added " . $_POST['FirstName'] . " " . $_POST['LastName'] . " to coach table.";
-        }
-        $stmt->close();
 
-        */
         ?>
 
 
 
-    </div>
 </div>
 </body>
 </html>
