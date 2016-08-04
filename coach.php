@@ -86,7 +86,7 @@ if($mysqli->connect_errno){
                     $hiddenField = $hiddenFieldId . $hiddenFieldFName . $hiddenFieldLName;
                     $viewForm = "<form action=\"coach.php\" method=\"get\"><input type=\"submit\" value=\"View\">" . $hiddenField . "</form>";
                     $view = "<td>" . $viewForm . "</td>";
-                    $addForm =  "<form action=\"addCoachInfo.php\" method=\"post\"><input type=\"submit\" value=\"Add\">" . $hiddenField . "</form>";
+                    $addForm =  "<form action=\"addCoachInfo.php\" method=\"get\"><input type=\"submit\" value=\"Add\">" . $hiddenField . "</form>";
                     $add = "<td>" . $addForm . "</td>";
                     $deleteForm = "<form action=\"deleteCoach.php\" method=\"post\"><input type=\"submit\" value=\"Delete\">" . $hiddenField . "</form>";
                     $delete = "<td>" . $deleteForm . "</td>";
