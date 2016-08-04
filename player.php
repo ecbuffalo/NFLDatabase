@@ -54,7 +54,7 @@ if($mysqli->connect_errno){
         </div>
         <div class="col-sm-4">
             <h2>Players</h2>
-            <table class="table-striped">
+            <table class="table table-hover" border="1">
                 <tr>
                     <td>Name</td>
                     <td>Birthdate</td>

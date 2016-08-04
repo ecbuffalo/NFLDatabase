@@ -47,7 +47,7 @@ if(!($stmt->bind_param("i",$_POST['CoachID']))){
 if(!$stmt->execute()){
     echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 } else {
-    echo "Successfully Removed Coach History for " . $_POST['FirstName'] . " " . $_POST['LastName'] . ".";
+    echo "<p>Successfully Removed Coach History for " . $_POST['FirstName'] . " " . $_POST['LastName'] . ".</p>";
 }
 $stmt->close();
 
@@ -61,7 +61,7 @@ if(!($stmt->bind_param("i",$_POST['CoachID']))){
 if(!$stmt->execute()){
     echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 } else {
-    echo "Successfully Removed " . $_POST['FirstName'] . " " . $_POST['LastName'] . " from coach table.";
+    echo "<p>Successfully Removed " . $_POST['FirstName'] . " " . $_POST['LastName'] . " from coach table.</p>";
 }
 $stmt->close();
 ?>
