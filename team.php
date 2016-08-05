@@ -55,13 +55,13 @@ if($mysqli->connect_errno){
         </div>
         <div class="col-sm-4">
             <h2>Teams</h2>
-            <table>
+            <table class="table table-hover" border="1">
                 <tr>
-                    <td>Name</td>
-                    <td>City</td>
-                    <td>State</td>
-                    <td>Date Founded</td>
-                    <td>Delete</td>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Date Founded</th>
+                    <th>Delete</th>
                 </tr>
                 <?php
 

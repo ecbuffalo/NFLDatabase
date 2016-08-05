@@ -53,15 +53,15 @@ if($mysqli->connect_errno){
         </div>
         <div class="col-md-4">
             <h2>Coaches</h2>
-            <table>
+            <table class="table table-hover" border="1">
                 <tr>
-                    <td>Name</td>
-                    <td>Division Championships</td>
-                    <td>Conference Championships</td>
-                    <td>League Championships</td>
-                    <td>View Info</td>
-                    <td>Add Info</td>
-                    <td>Delete</td>
+                    <th>Name</th>
+                    <th>Division Championships</th>
+                    <th>Conference Championships</th>
+                    <th>League Championships</th>
+                    <th>View Info</th>
+                    <th>Add Info</th>
+                    <th>Delete</th>
                 </tr>
                 <?php
 
@@ -141,12 +141,12 @@ if($mysqli->connect_errno){
                     $coachName = "No Coach Name";
                 }
                 $tableHTML = "<h2>" . $coachName . "</h2>
-            <table>
+            <table class=\"table table-hover\" border=\"1\">
                 <tr>
-                    <td>Team Name</td>
-                    <td>Start Date</td>
-                    <td>End Date</td>
-                    <td>Job Title</td>
+                    <th>Team Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Job Title</th>
                 </tr>";
                 echo $tableHTML;
                 if($coachHasEntries){

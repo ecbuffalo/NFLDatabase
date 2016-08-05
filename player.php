@@ -94,4 +94,136 @@ if($mysqli->connect_errno){
             </table>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <?php
+            if(isset($_GET['PlayerID'])){
+                $coachID = $_GET['PlayerID'];
+
+                // Player Team Information
+                $playerHasEntries = false;
+                $playerName = "";
+                $playerHistory = array();
+                $sql = "SELECT p.first_name,p.last_name,t.name,t.region_name,pf.start_date,pf.end_date,pf.position FROM player p
+                                            INNER JOIN played_for pf on p.id=pf.player_id
+                                            INNER JOIN team t on pf.team_id=t.id
+                                            WHERE p.id = ?";
+                if(!($stmt = $mysqli->prepare($sql))){
+                    echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+                }
+                if(!($stmt->bind_param("i",$coachID))){
+                    echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+                }
+
+                if(!$stmt->execute()){
+                    echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                }
+                if(!$stmt->bind_result($p_first_name,$p_last_name,$team_name,$team_region,$start,$end,$position)){
+                    echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                }
+                while($stmt->fetch()){
+                    $playerHasEntries = true;
+                    $playerName = $p_first_name . " " . $p_last_name;
+                    $rowHTML = "<tr>";
+                    $rowHTML .= "<td>" . $team_region . " " . $team_name . "</td>";
+                    $rowHTML .= "<td>" . $start . "</td>";
+                    $rowHTML .= "<td>" . $end . "</td>";
+                    $rowHTML .= "<td>" . $position . "</td>";
+                    $rowHTML .= "</tr>";
+                    array_push($playerHistory, $rowHTML);
+                }
+                $stmt->close();
+
+                if($playerName == ""){
+                    $playerName = "No Player Name";
+                }
+                $tableHTML = "<h2>" . $playerName . "</h2>
+            <table class=\"table table-hover\" border=\"1\">
+                <tr>
+                    <th>Team Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Position</th>
+                </tr>";
+                echo $tableHTML;
+                if($playerHasEntries){
+                    $historyLength = count($playerHistory);
+                    for($x = 0 ; $x < $historyLength; $x++){
+                        echo $playerHistory[$x];
+                    }
+                }else{
+                    echo "<td>No Player History</td>";
+                }
+                echo "</table>";
+
+
+                // Player Game Statistics
+                $playerHasEntries = false;
+                $playerGameStat = array();
+                $sql = "SELECT p.first_name,p.last_name,gs.game_date,gs.passing_yards,gs.passing_tds,
+                                gs.rushing_yards,gs.rushing_tds,gs.receiving_yards,gs.receiving_tds,
+                                t.name,t.region_name FROM player p
+                                            INNER JOIN game_statistics gs on p.id=gs.player_id
+                                            INNER JOIN team t on gs.team_id=t.id
+                                            WHERE p.id = ?";
+                if(!($stmt = $mysqli->prepare($sql))){
+                    echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+                }
+                if(!($stmt->bind_param("i",$coachID))){
+                    echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+                }
+
+                if(!$stmt->execute()){
+                    echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                }
+                if(!$stmt->bind_result($p_first_name,$p_last_name,$game_date,$passing_yards,$passing_tds,
+                    $rushing_yards,$rushing_tds,$receiving_yards,$receiving_tds,$team_name,$team_region)){
+                    echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                }
+                while($stmt->fetch()){
+                    $playerHasEntries = true;
+                    $playerName = $p_first_name . " " . $p_last_name;
+                    $rowHTML = "<tr>";
+                    $rowHTML .= "<td>" . $team_region . " " . $team_name . "</td>";
+                    $rowHTML .= "<td>" . $game_date . "</td>";
+                    $rowHTML .= "<td>" . $passing_yards . "</td>";
+                    $rowHTML .= "<td>" . $passing_tds . "</td>";
+                    $rowHTML .= "<td>" . $rushing_yards . "</td>";
+                    $rowHTML .= "<td>" . $rushing_tds . "</td>";
+                    $rowHTML .= "<td>" . $receiving_yards . "</td>";
+                    $rowHTML .= "<td>" . $receiving_tds . "</td>";
+                    $rowHTML .= "</tr>";
+                    array_push($playerGameStat, $rowHTML);
+                }
+                $stmt->close();
+
+                if($playerName == ""){
+                    $playerName = "No Player Name";
+                }
+                $tableHTML = "<h2>" . $playerName . "</h2>
+            <table class=\"table table-hover\" border=\"1\">
+                <tr>
+                    <th>Team Name</th>
+                    <th>Game Date</th>
+                    <th>Passing Yards</th>
+                    <th>Passing TDs</th>
+                    <th>Rushing Yards</th>
+                    <th>Rushing TDs</th>
+                    <th>Receiving Yards</th>
+                    <th>Receiving TDs</th>
+                </tr>";
+                echo $tableHTML;
+                if($playerHasEntries){
+                    $gameStatLength = count($playerGameStat);
+                    for($x = 0 ; $x < $gameStatLength; $x++){
+                        echo $playerGameStat[$x];
+                    }
+                }else{
+                    echo "<td>No Player Game Statistics</td>";
+                }
+                echo "</table>";
+            }
+            ?>
+        </div>
+    </div>
 </div>
