@@ -59,6 +59,9 @@ if($mysqli->connect_errno){
                     <th>Name</th>
                     <th>Birthdate</th>
                     <th>Alma Mater</th>
+                    <th>View Info</th>
+                    <th>Add Team History</th>
+                    <th>Add Game Stats</th>
                     <th>Delete</th>
                 </tr>
                 <?php
@@ -84,9 +87,15 @@ if($mysqli->connect_errno){
                     $hiddenFieldFName = "<input type=\"hidden\" name=\"FirstName\" value=\"" . $first_name . "\">";
                     $hiddenFieldLName = "<input type=\"hidden\" name=\"LastName\" value=\"" . $last_name . "\">";
                     $hiddenField = $hiddenFieldId . $hiddenFieldFName . $hiddenFieldLName;
-                    $deleteForm = "<form action=\"deletePlayer.php\" method=\"post\"><input type=\"submit\" value=\"Delete\">" . $hiddenField . "</form>";
+                    $viewForm = "<form action=\"player.php\" method=\"get\"><input type=\"submit\" value=\"View\">" . $hiddenField . "</form>";
+                    $view = "<td>" . $viewForm . "</td>";
+                    $addForm =  "<form action=\"addPlayerInfo.php\" method=\"get\"><input type=\"submit\" value=\"Add Team\">" . $hiddenField . "</form>";
+                    $add = "<td>" . $addForm . "</td>";
+                    $addStatForm =  "<form action=\"addPlayerGameStat.php\" method=\"get\"><input type=\"submit\" value=\"Add Game Stat\">" . $hiddenField . "</form>";
+                    $addStat = "<td>" . $addStatForm . "</td>";
+                    $deleteForm = "<form action=\"deleteCoach.php\" method=\"post\"><input type=\"submit\" value=\"Delete\">" . $hiddenField . "</form>";
                     $delete = "<td>" . $deleteForm . "</td>";
-                    echo "<tr>" . $name . $birth . $alma . $delete . "</tr>";
+                    echo "<tr>" . $name . $birth . $alma . $view . $add . $addStatForm . $delete . "</tr>";
                 }
                 $stmt->close();
                 ?>
