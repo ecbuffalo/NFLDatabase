@@ -107,9 +107,9 @@ if($mysqli->connect_errno){
         <div class="col-md-12">
             <?php
             if(isset($_GET['PlayerID'])){
-                $coachID = $_GET['PlayerID'];
+                $playerID = $_GET['PlayerID'];
 
-                // Player Team Information
+                // Get Player Team Information
                 $playerHasEntries = false;
                 $playerName = "";
                 $playerHistory = array();
@@ -120,7 +120,7 @@ if($mysqli->connect_errno){
                 if(!($stmt = $mysqli->prepare($sql))){
                     echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
                 }
-                if(!($stmt->bind_param("i",$coachID))){
+                if(!($stmt->bind_param("i",$playerID))){
                     echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
                 }
 
@@ -146,7 +146,10 @@ if($mysqli->connect_errno){
                 if($playerName == ""){
                     $playerName = "No Player Name";
                 }
-                $tableHTML = "<h2>" . $playerName . "</h2>
+                echo "<h2>" . $playerName . "</h2>";
+
+                // Echo Team History
+                $tableHTML = "<h3>Team History</h3>
             <table class=\"table table-hover\" border=\"1\">
                 <tr>
                     <th>Team Name</th>
@@ -166,7 +169,7 @@ if($mysqli->connect_errno){
                 echo "</table>";
 
 
-                // Player Game Statistics
+                // Get Player Game Statistics
                 $playerHasEntries = false;
                 $playerGameStat = array();
                 $sql = "SELECT p.first_name,p.last_name,gs.game_date,gs.passing_yards,gs.passing_tds,
@@ -178,7 +181,7 @@ if($mysqli->connect_errno){
                 if(!($stmt = $mysqli->prepare($sql))){
                     echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
                 }
-                if(!($stmt->bind_param("i",$coachID))){
+                if(!($stmt->bind_param("i",$playerID))){
                     echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
                 }
 
@@ -209,7 +212,8 @@ if($mysqli->connect_errno){
                 if($playerName == ""){
                     $playerName = "No Player Name";
                 }
-                $tableHTML = "<h2>" . $playerName . "</h2>
+                // Echo Player Game Stats
+                $tableHTML = "<h3>Game Statistics</h3>
             <table class=\"table table-hover\" border=\"1\">
                 <tr>
                     <th>Team Name</th>

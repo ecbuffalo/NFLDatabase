@@ -140,7 +140,9 @@ if($mysqli->connect_errno){
                 if($coachName == ""){
                     $coachName = "No Coach Name";
                 }
-                $tableHTML = "<h2>" . $coachName . "</h2>
+                echo "<h2>" . $coachName . "</h2>";
+
+                $tableHTML = "<h3>Team History</h3>
             <table class=\"table table-hover\" border=\"1\">
                 <tr>
                     <th>Team Name</th>

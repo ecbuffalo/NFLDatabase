@@ -55,7 +55,10 @@ if(!$mysqli || $mysqli->connect_errno){
                             if(!$stmt->bind_result($player_id,$first_name,$last_name)){
                                 echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
                             }
+
+                            $hasPlayerOptions = false;
                             while($stmt->fetch()){
+                                $hasPlayerOptions = true;
                                 if(isset($_GET['PlayerID'])){
                                     if($_GET['PlayerID'] == $player_id){
                                         echo '<option selected="selected" value=" '. $player_id . ' "> ' . $first_name . " " .$last_name . '</option>\n';
@@ -67,6 +70,11 @@ if(!$mysqli || $mysqli->connect_errno){
                                 }
                             }
                             $stmt->close();
+
+                            if ($hasTeamOptions){
+                                echo "</select><h1>No Players in Database! Add at least one first...</h1>";
+                                return;
+                            }
                             ?>
                         </select>
                     </p>
@@ -84,18 +92,25 @@ if(!$mysqli || $mysqli->connect_errno){
                             if(!$stmt->bind_result($team_id,$team_name,$team_region)){
                                 echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
                             }
+
+                            $hasTeamOptions = false;
                             while($stmt->fetch()){
-                                $teams[$team_id] = $team_region . " " . $team_name;
+                                $hasTeamOptions = true;
+                                if(isset($_GET['TeamID'])){
+                                    if($_GET['TeamID'] == $team_id){
+                                        echo '<option selected="selected" value=" '. $team_id . ' "> ' . $team_region . " " .$team_name . '</option>\n';
+                                    }else{
+                                        echo '<option value=" '. $team_id . ' "> ' . $team_region . " " .$team_name . '</option>\n';
+                                    }
+                                }else{
+                                    echo '<option value=" '. $team_id . ' "> ' . $team_region . " " .$team_name . '</option>\n';
+                                }
                             }
                             $stmt->close();
 
-                            if (count($teams) == 0){
+                            if ($hasTeamOptions){
                                 echo "</select><h1>No Teams in Database! Add at least one first...</h1>";
                                 return;
-                            }else{
-                                foreach ($teams as $t => $t_value){
-                                    echo "<option value=\"" . $t . "\">" .$t_value . "</li>";
-                                }
                             }
                             ?>
                         </select>
