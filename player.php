@@ -95,7 +95,7 @@ if($mysqli->connect_errno){
                     $addStat = "<td>" . $addStatForm . "</td>";
                     $deleteForm = "<form action=\"deleteCoach.php\" method=\"post\"><input type=\"submit\" value=\"Delete\">" . $hiddenField . "</form>";
                     $delete = "<td>" . $deleteForm . "</td>";
-                    echo "<tr>" . $name . $birth . $alma . $view . $add . $addStatForm . $delete . "</tr>";
+                    echo "<tr>" . $name . $birth . $alma . $view . $add . $addStat . $delete . "</tr>";
                 }
                 $stmt->close();
                 ?>
