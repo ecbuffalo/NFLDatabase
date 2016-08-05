@@ -37,6 +37,38 @@ if(!$mysqli || $mysqli->connect_errno){
 </nav>
 
 <?php
+// Delete Player Team History
+if(!($stmt = $mysqli->prepare("DELETE FROM played_for WHERE player_id = ?"))){
+    echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!($stmt->bind_param("i",$_POST['PlayerID']))){
+    echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+}
+if(!$stmt->execute()){
+    echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+} else {
+    echo "<p>Successfully Removed " . $_POST['FirstName'] . " " . $_POST['LastName'] . "'s Team History'.</p>";
+}
+$stmt->close();
+
+// Delete Player Game stats
+if(!($stmt = $mysqli->prepare("DELETE FROM game_statistics WHERE player_id = ?"))){
+    echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!($stmt->bind_param("i",$_POST['PlayerID']))){
+    echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+}
+if(!$stmt->execute()){
+    echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+} else {
+    echo "<p>Successfully Removed " . $_POST['FirstName'] . " " . $_POST['LastName'] . "'s Game Statistics'.</p>";
+}
+$stmt->close();
+
+
+// Delete player
 if(!($stmt = $mysqli->prepare("DELETE FROM player WHERE id = ?"))){
     echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
@@ -47,7 +79,7 @@ if(!($stmt->bind_param("i",$_POST['PlayerID']))){
 if(!$stmt->execute()){
     echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 } else {
-    echo "Successfully Removed " . $_POST['FirstName'] . " " . $_POST['LastName'] . " from player table.";
+    echo "<p>Successfully Removed " . $_POST['FirstName'] . " " . $_POST['LastName'] . " from player table.</p>";
 }
 $stmt->close();
 ?>

@@ -37,6 +37,7 @@ if(!$mysqli || $mysqli->connect_errno){
 </nav>
 
 <?php
+// Delete Team's coached for
 if(!($stmt = $mysqli->prepare("DELETE FROM coached_for WHERE coach_id = ?"))){
     echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
@@ -51,6 +52,7 @@ if(!$stmt->execute()){
 }
 $stmt->close();
 
+// Delete Coach
 if(!($stmt = $mysqli->prepare("DELETE FROM coach WHERE id = ?"))){
     echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }

@@ -37,6 +37,37 @@ if(!$mysqli || $mysqli->connect_errno){
 </nav>
 
 <?php
+// Delete Team Player History
+if(!($stmt = $mysqli->prepare("DELETE FROM played_for WHERE team_id = ?"))){
+    echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!($stmt->bind_param("i",$_POST['PlayerID']))){
+    echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+}
+if(!$stmt->execute()){
+    echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+} else {
+    echo "<p>Successfully Removed " . $_POST['RegionName'] . " " . $_POST['TeamName'] . "'s Player History'.</p>";
+}
+$stmt->close();
+
+// Delete Team's Player Game stats
+if(!($stmt = $mysqli->prepare("DELETE FROM game_statistics WHERE team_id = ?"))){
+    echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!($stmt->bind_param("i",$_POST['PlayerID']))){
+    echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+}
+if(!$stmt->execute()){
+    echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+} else {
+    echo "<p>Successfully Removed " . $_POST['RegionName'] . " " . $_POST['TeamName'] . "'s Game Statistics'.</p>";
+}
+$stmt->close();
+
+// Delete Team's Coaching history
 if(!($stmt = $mysqli->prepare("DELETE FROM coached_for WHERE team_id = ?"))){
     echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
@@ -47,10 +78,11 @@ if(!($stmt->bind_param("i",$_POST['TeamID']))){
 if(!$stmt->execute()){
     echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 } else {
-    echo "<p>Successfully Removed " . $_POST['RegionName'] . " " . $_POST['TeamName'] . "'s coaching history.</p>";
+    echo "<p>Successfully Removed " . $_POST['RegionName'] . " " . $_POST['TeamName'] . "'s Coaching History.</p>";
 }
-$stmt->close()
+$stmt->close();
 
+// Delete Team
 if(!($stmt = $mysqli->prepare("DELETE FROM team WHERE id = ?"))){
     echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
@@ -61,7 +93,7 @@ if(!($stmt->bind_param("i",$_POST['TeamID']))){
 if(!$stmt->execute()){
     echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 } else {
-    echo "Successfully Removed " . $_POST['RegionName'] . " " . $_POST['TeamName'] . " from team table.";
+    echo "Successfully Removed " . $_POST['RegionName'] . " " . $_POST['TeamName'] . " from Team table.";
 }
 $stmt->close();
 ?>
