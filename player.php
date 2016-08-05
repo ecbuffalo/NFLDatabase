@@ -93,7 +93,7 @@ if($mysqli->connect_errno){
                     $add = "<td>" . $addForm . "</td>";
                     $addStatForm =  "<form action=\"addPlayerGameStat.php\" method=\"get\"><input type=\"submit\" value=\"Add Game Stat\">" . $hiddenField . "</form>";
                     $addStat = "<td>" . $addStatForm . "</td>";
-                    $deleteForm = "<form action=\"deleteCoach.php\" method=\"post\"><input type=\"submit\" value=\"Delete\">" . $hiddenField . "</form>";
+                    $deleteForm = "<form action=\"deletePlayer.php\" method=\"post\"><input type=\"submit\" value=\"Delete\">" . $hiddenField . "</form>";
                     $delete = "<td>" . $deleteForm . "</td>";
                     echo "<tr>" . $name . $birth . $alma . $view . $add . $addStat . $delete . "</tr>";
                 }
