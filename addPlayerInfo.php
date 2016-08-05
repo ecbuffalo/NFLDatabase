@@ -71,7 +71,7 @@ if(!$mysqli || $mysqli->connect_errno){
                             }
                             $stmt->close();
 
-                            if ($hasTeamOptions){
+                            if (!$hasPlayerOptions){
                                 echo "</select><h1>No Players in Database! Add at least one first...</h1>";
                                 return;
                             }
@@ -107,7 +107,7 @@ if(!$mysqli || $mysqli->connect_errno){
                                 }
                             }
 
-                            if ($hasTeamOptions){
+                            if (!$hasTeamOptions){
                                 echo "</select><h1>No Teams in Database! Add at least one first...</h1>";
                                 return;
                             }
