@@ -78,6 +78,7 @@ if($mysqli->connect_errno){
                 if(!$stmt->bind_result($team_id,$name,$city,$state,$region,$date_founded)){
                     echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
                 }
+
                 while($stmt->fetch()){
                     $name = "<td>" . $region . " " . $name . "</td>";
                     $c = "<td>" . $city . "</td>";
